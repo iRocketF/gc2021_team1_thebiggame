@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private int[] levelOrder;
 
     private int currentLevel;
+    private int lastLevel = 3;  // Always one smaller than the real last level
 
     public static GameManager Instance
     {
@@ -54,12 +55,6 @@ public class GameManager : MonoBehaviour
             // To do: Pause menu
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ChooseRandomLevels();
-            // To do: Next level
-        }
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             LoadNextLevel();
@@ -76,33 +71,41 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 levelOrder = levelList1;
-                Debug.Log("levelList1");
                 break;
             case 2:
                 levelOrder = levelList2;
-                Debug.Log("levelList2");
                 break;
             case 3:
                 levelOrder = levelList3;
-                Debug.Log("levelList3");
                 break;
             default:
                 levelOrder = levelList1;
                 break;
         }
-
-        Debug.Log(levelOrder[1]);
     }
 
-    void LoadFirstLevel()
+    public void LoadFirstLevel()
     {
+        currentLevel = 0;
+        ChooseRandomLevels();
         SceneManager.LoadScene(levelOrder[0]);
     }
 
-    void LoadNextLevel()
+    public void LoadNextLevel()
     {
-        currentLevel++;
-        int level = levelOrder[currentLevel];
-        SceneManager.LoadScene(level);
+        if (currentLevel < lastLevel)
+        {
+            Debug.Log("Next level");
+            currentLevel++;
+            int level = levelOrder[currentLevel];
+            SceneManager.LoadScene(level);
+        }
+        else if (currentLevel == lastLevel)
+        {
+            Debug.Log("Max level reached, starting again");
+            ChooseRandomLevels();
+            LoadFirstLevel();
+        }
+        
     }
 }
