@@ -47,4 +47,10 @@ public class MeleeEnemy : Enemies
         float y = Mathf.PingPong(Time.time * pingPongSpeed, pingPongLength) + minimum;
         enemyObject.transform.position = new Vector3(transform.position.x, y, transform.position.z);
     }
+
+    public virtual void DeActivate()
+    {
+        FindObjectOfType<ExitHandler>().EnemyKilled();
+        base.Deactivate();
+    }
 }
