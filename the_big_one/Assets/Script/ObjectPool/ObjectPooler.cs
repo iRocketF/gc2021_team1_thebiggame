@@ -16,40 +16,56 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
 
-    #region Singleton
-
     public static ObjectPooler Instance;
+
+    public List<Pool> pools;
+    public Dictionary<string, Queue<IPooledObject>> poolDictionary;
 
     private void Awake()
     {
         Instance = this;
-    }
 
-    #endregion
+        // Create the dictionary
+        poolDictionary = new Dictionary<string, Queue<IPooledObject>>();
 
-    public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
-
-    void Start()
-    {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
-
+        // Populate all the Queues
         foreach (Pool pool in pools)
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
+            Queue<IPooledObject> objectPool = new Queue<IPooledObject>();
 
+            // Loop through the size of the pool, enqueue and instantiate deactivated objects.
             for (int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
+
+                // Fetch the interface and ensure it exists. If not, print error and return
+                IPooledObject pooled = obj.GetComponent<IPooledObject>();
+
+                if (pooled == null)
+                {
+                    Debug.LogError(obj.name + " in the object pool doesn't implement IPooledObject interface");
+                    return;
+                }
+
+                // Switch the object off and add it to the queue
+                pooled.Deactivate();
+                objectPool.Enqueue(pooled);
             }
 
+            // Add the new queue to the dictionary
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    /// <summary>
+    /// Dequeues and resets an object from the pool corresponding to given tag. Then activates and
+    /// returns that GameObject. If tag was not found, return null.
+    /// </summary>
+    /// <param name="tag">Name of the pool</param>
+    /// <param name="position">Position of the new object</param>
+    /// <param name="rotation">Rotation of the new object</param>
+    /// <returns>The GameObject from the object pool. Null if tag not found</returns>
+    public IPooledObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -57,20 +73,9 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
 
+        IPooledObject objectToSpawn = poolDictionary[tag].Dequeue();
 
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-
-        objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation = rotation;
-
-        IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
-
-        if (pooledObj != null)
-        {
-            pooledObj.OnObjectSpawn();
-        }
-
+        objectToSpawn.Activate(position, rotation);
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;

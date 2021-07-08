@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeEnemy : MonoBehaviour, IPooledObject
+public class MeleeEnemy : Enemies
 {
     [SerializeField] private NavMeshAgent agent;
 
     [SerializeField] private float pingPongLength = 0.5f;
-    [SerializeField] private float pingPongSpeed = 1f;
     [SerializeField] private float minPingPongHeight = 1f;
+    private float pingPongSpeed;
 
     [SerializeField] [Tooltip("Child game object of this parent")]
     private GameObject enemyObject;
     private GameObject player;
 
-    public void OnObjectSpawn()
+    public void Start()
     {
         player = GameObject.Find("Player");
+
+        pingPongSpeed = Random.Range(0.2f, 0.6f);
     }
 
     void Update()
