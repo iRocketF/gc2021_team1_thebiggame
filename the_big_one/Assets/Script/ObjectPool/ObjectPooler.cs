@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,17 @@ public class ObjectPooler : MonoBehaviour
         public GameObject prefab;
         public int size;
     }
+
+    #region Singleton
+
+    public static ObjectPooler Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    #endregion
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
@@ -51,6 +63,13 @@ public class ObjectPooler : MonoBehaviour
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
+
+        IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
+
+        if (pooledObj != null)
+        {
+            pooledObj.OnObjectSpawn();
+        }
 
         poolDictionary[tag].Enqueue(objectToSpawn);
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeEnemy : MonoBehaviour
+public class MeleeEnemy : MonoBehaviour, IPooledObject
 {
     [SerializeField] private NavMeshAgent agent;
 
@@ -15,7 +15,7 @@ public class MeleeEnemy : MonoBehaviour
     private GameObject enemyObject;
     private GameObject player;
 
-    void Start()
+    public void OnObjectSpawn()
     {
         player = GameObject.Find("Player");
     }
