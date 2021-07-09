@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         forward = Vector3.Normalize(forward);
 
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        transform.position = FindObjectOfType<StartingPosition>().GetPosition();
     }
 
     void Update()

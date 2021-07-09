@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
 
+    private const int menu = 0;
+
     [SerializeField] int[] levelList1;
     [SerializeField] int[] levelList2;
     [SerializeField] int[] levelList3;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // To do: Pause menu
+            LoadMenu();
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -106,5 +108,10 @@ public class GameManager : MonoBehaviour
             LoadFirstLevel();
         }
         
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene(menu);
     }
 }

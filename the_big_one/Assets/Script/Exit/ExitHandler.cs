@@ -6,6 +6,7 @@ using UnityEngine;
 public class ExitHandler : MonoBehaviour
 {
     [SerializeField] private int enemiesToKill = 5;
+    [SerializeField] private Renderer dooRenderer;
     private int enemiesKilled;
     private bool isExitOpen = false;
 
@@ -37,7 +38,8 @@ public class ExitHandler : MonoBehaviour
 
     void ChangeExitColor()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.green;
+        //gameObject.GetComponent<Renderer>().material.color = Color.green;
+        dooRenderer.material.color = Color.green;
     }
 
     private void OnTriggerEnter(Collider other)

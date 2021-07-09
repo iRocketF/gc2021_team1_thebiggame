@@ -62,9 +62,11 @@ public class MeleeEnemy : Enemies
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("You hit me");
         if (!isInVulnerable)
         {
             health -= damage;
+            
         }
         
         if (health <= 0)
