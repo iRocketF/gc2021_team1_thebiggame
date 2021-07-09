@@ -5,17 +5,27 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController pController;
+    public Animator pAnimator;
+    public BoxCollider hitZone;
 
     public float moveSpeed;
     public float gravity;
 
+    public float hitZoneTime;
+    public float timer;
+
     Vector3 forward, right;
 
     private Vector3 velocity;
+    private Quaternion lastRotation;
 
     void Start()
     {
+        pAnimator = GetComponentInChildren<Animator>();
         pController = GetComponent<CharacterController>();
+        hitZone = GetComponentInChildren<BoxCollider>();
+
+        hitZone.enabled = false;
 
         forward = Camera.main.transform.forward;
         forward.y = 0f;
@@ -27,6 +37,18 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
+
+        if (Input.GetButtonDown("Fire1"))
+            Attack();
+
+        if (hitZone.enabled && timer < hitZoneTime)
+            timer += Time.deltaTime;
+        else if (timer >= hitZoneTime)
+        {
+            timer = 0f;
+            hitZone.enabled = false;
+        }
+
     }
 
     void Move()
@@ -42,14 +64,31 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement) * moveSpeed * Time.deltaTime;
 
-        // transform.forward = heading;
-        // transform.position += rightMovement;
-        // transform.position += upMovement;
-
         velocity.y += gravity * Time.deltaTime;
+
+        if(heading != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(heading);
+
+        if (horizontal !=0 || vertical != 0)
+        {
+            lastRotation = transform.rotation;
+            pAnimator.SetBool("isMoving", true);
+        } else
+        {
+            pAnimator.SetBool("isMoving", false);
+        }
 
         pController.Move(heading + (velocity * Time.deltaTime));
 
+        transform.rotation = lastRotation;
+
+    }
+    
+    void Attack()
+    {
+        pAnimator.SetTrigger("Strike");
+
+        hitZone.enabled = true;
 
     }
 }
