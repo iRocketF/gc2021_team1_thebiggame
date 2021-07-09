@@ -15,6 +15,12 @@ public class MeleeEnemy : Enemies
     private GameObject enemyObject;
     private GameObject player;
 
+    [SerializeField] private int health = 10;
+    [SerializeField] private float inVulnerabilityTime = 0.2f;
+    private bool isInVulnerable = false;
+
+    [SerializeField] private int damageAmount = 5;
+
     public void Start()
     {
         player = GameObject.Find("Player");
@@ -52,5 +58,28 @@ public class MeleeEnemy : Enemies
     {
         FindObjectOfType<ExitHandler>().EnemyKilled();
         base.Deactivate();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isInVulnerable)
+        {
+            health -= damage;
+        }
+        
+        if (health <= 0)
+        {
+            DeActivate();
+        }
+        else
+        {
+            isInVulnerable = true;
+            Invoke("InvulnerabilityOff", inVulnerabilityTime);
+        }
+    }
+
+    void InvulnerabilityOff()
+    {
+        isInVulnerable = false;
     }
 }

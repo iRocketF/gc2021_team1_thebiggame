@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             LoadNextLevel();
-            // To do: Next level
         }
     }
 
