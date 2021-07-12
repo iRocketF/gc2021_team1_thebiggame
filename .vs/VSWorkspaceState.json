@@ -4,9 +4,10 @@
     "\\the_big_one",
     "\\the_big_one\\Assets",
     "\\the_big_one\\Assets\\Script",
+    "\\the_big_one\\Assets\\Script\\Enemies",
     "\\the_big_one\\Assets\\Script\\ObjectPool",
     "\\the_big_one\\Assets\\Script\\Player Code"
   ],
-  "SelectedNode": "\\the_big_one\\Assets\\Script\\ObjectPool\\ObjectPooler.cs",
+  "SelectedNode": "\\the_big_one\\Assets\\Script\\Enemies\\RangedMissile.cs",
   "PreviewInSolutionExplorer": false
 }

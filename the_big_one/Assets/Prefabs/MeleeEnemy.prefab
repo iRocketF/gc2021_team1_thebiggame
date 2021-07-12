@@ -183,6 +183,6 @@ MonoBehaviour:
   pingPongLength: 1
   minPingPongHeight: 1
   enemyObject: {fileID: 7578422569812713012}
-  health: 10
+  health: 5
   inVulnerabilityTime: 0.2
   damageAmount: 5
