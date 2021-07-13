@@ -16,6 +16,8 @@ public class MeleeEnemy : Enemies
     [SerializeField] [Tooltip("Child game object of this parent")]
     private GameObject enemyObject;
     private GameObject player;
+    [SerializeField] private GameObject hitParticle;
+
 
     [SerializeField] private int health = 10;
     [SerializeField] private float inVulnerabilityTime = 0.2f;
@@ -106,6 +108,7 @@ public class MeleeEnemy : Enemies
         
         if (health <= 0)
         {
+            GameObject hitParticleClone = Instantiate(hitParticle, enemyObject.transform.position, enemyObject.transform.rotation);
             DeActivate();
         }
         else
