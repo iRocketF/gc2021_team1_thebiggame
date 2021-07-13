@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 4176003322055695225}
   - component: {fileID: 4176003322055695231}
   - component: {fileID: 4176003322055695224}
+  - component: {fileID: 7807568485723308873}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -302,6 +303,20 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7807568485723308873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176003322055695230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd47b984baa6f93468b05579e93f6fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 0
 --- !u!1 &5175991523676597644
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +460,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 975571b85e4d3b14da2222878bec628c, type: 3}
       propertyPath: m_Name
       value: PlayerCharacterV2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6666603822528672967, guid: 975571b85e4d3b14da2222878bec628c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 975571b85e4d3b14da2222878bec628c, type: 3}
