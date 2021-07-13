@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class MeleeEnemy : Enemies
 {
@@ -20,12 +22,16 @@ public class MeleeEnemy : Enemies
     private bool isInVulnerable = false;
 
     [SerializeField] private int damageAmount = 5;
+    [SerializeField] private float attackSphereRadius = 3f;
+    [SerializeField] private LayerMask layerMask;
+
+    [SerializeField] private float attackTimerAmount = 2f;
+    private float attackTimer;
 
     public void Start()
     {
         player = GameObject.Find("Player");
-
-        pingPongSpeed = Random.Range(0.2f, 0.6f);
+        SetUp();
     }
 
     void Update()
@@ -36,6 +42,7 @@ public class MeleeEnemy : Enemies
         }
 
         PingPong();
+        PrepareToAttack();
     }
 
     void FollowPlayer()
@@ -52,6 +59,34 @@ public class MeleeEnemy : Enemies
 
         float y = Mathf.PingPong(Time.time * pingPongSpeed, pingPongLength) + minimum;
         enemyObject.transform.position = new Vector3(transform.position.x, y, transform.position.z);
+    }
+
+    void PrepareToAttack()
+    {
+        Vector3 enemyOrigin = enemyObject.transform.position;
+
+        Collider[] hitColliders = Physics.OverlapSphere(enemyOrigin, attackSphereRadius, layerMask);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.CompareTag("Player"))
+            {
+                Attack();
+                break;
+            }
+        }
+    }
+
+    void Attack()
+    {
+        attackTimer -= Time.deltaTime;
+
+        if (attackTimer <= 0)
+        {
+            // To do: Player takes damage
+            Debug.Log("Player took damage from melee");
+            attackTimer = attackTimerAmount;
+        }
     }
 
     public virtual void DeActivate()
@@ -83,5 +118,12 @@ public class MeleeEnemy : Enemies
     void InvulnerabilityOff()
     {
         isInVulnerable = false;
+    }
+
+    void SetUp()
+    {
+        pingPongSpeed = Random.Range(0.2f, 0.6f);
+
+        attackTimer = attackTimerAmount;
     }
 }

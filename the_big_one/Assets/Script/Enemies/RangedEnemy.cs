@@ -31,13 +31,18 @@ public class RangedEnemy : Enemies
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
 
+    [SerializeField] private float evadeSphereRadius = 5f;
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float evadeTimerAmount = 3;
+    private float evadeTimer;
+
     void Start()
     {
         player = GameObject.Find("Player");
         SetUp();
     }
 
-    
+
     void Update()
     {
         if (Vector3.Distance(transform.position, currentTarget) < targetThreshold && isMoving)
@@ -59,6 +64,8 @@ public class RangedEnemy : Enemies
         {
             Shoot();
         }
+
+        EvadePlayer();
     }
 
     private void GetNewDestination()
@@ -109,12 +116,6 @@ public class RangedEnemy : Enemies
         }
     }
 
-    public virtual void DeActivate()
-    {
-        FindObjectOfType<ExitHandler>().EnemyKilled();
-        base.Deactivate();
-    }
-
     public void TakeDamage(int damage)
     {
         Debug.Log("You hit me");
@@ -135,9 +136,38 @@ public class RangedEnemy : Enemies
         }
     }
 
+    void EvadePlayer()
+    {
+        Vector3 enemyOrigin = transform.position;
+
+        Collider[] hitColliders = Physics.OverlapSphere(enemyOrigin, evadeSphereRadius, layerMask);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.CompareTag("Player"))
+            {
+                evadeTimer -= Time.deltaTime;
+
+                if (evadeTimer <= 0)
+                {
+                    Debug.Log("Player too close to me, evade");
+                    moveTimer = 0f;
+
+                    evadeTimer = evadeTimerAmount;
+                }
+            }
+        }
+    }
+
     void InvulnerabilityOff()
     {
         isInVulnerable = false;
+    }
+
+    public virtual void DeActivate()
+    {
+        FindObjectOfType<ExitHandler>().EnemyKilled();
+        base.Deactivate();
     }
 
     void SetUp()
@@ -145,6 +175,7 @@ public class RangedEnemy : Enemies
         previousTarget = transform.position;
         shootTimer = shootTimerAmount;
         moveTimer = moveTimerAmount;
+        evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
     }
