@@ -24,7 +24,8 @@ public class RangedMissile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // Do damage
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+
             Debug.Log("Player took damage");
             Destroy(gameObject);
         }

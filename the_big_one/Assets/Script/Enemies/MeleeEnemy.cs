@@ -73,19 +73,21 @@ public class MeleeEnemy : Enemies
         {
             if (hitCollider.gameObject.CompareTag("Player"))
             {
-                Attack();
+                PlayerHealth health = hitCollider.gameObject.GetComponent<PlayerHealth>();
+                Attack(health);
                 break;
             }
         }
     }
 
-    void Attack()
+    void Attack(PlayerHealth healthSystem)
     {
         attackTimer -= Time.deltaTime;
 
         if (attackTimer <= 0)
         {
-            // To do: Player takes damage
+            healthSystem.TakeDamage(damageAmount);
+
             Debug.Log("Player took damage from melee");
             attackTimer = attackTimerAmount;
         }
@@ -103,7 +105,8 @@ public class MeleeEnemy : Enemies
         if (!isInVulnerable)
         {
             health -= damage;
-            
+            attackTimer = attackTimerAmount;
+
         }
         
         if (health <= 0)

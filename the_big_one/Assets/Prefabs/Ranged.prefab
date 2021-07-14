@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 7362737018255475196}
-  health: 10
+  health: 15
   inVulnerabilityTime: 0.2
   projectile: {fileID: 1637566977038157469, guid: d197ea34544c38c4fa501ad0b690a711, type: 3}
   spawnPoint: {fileID: 7362737019676284668}

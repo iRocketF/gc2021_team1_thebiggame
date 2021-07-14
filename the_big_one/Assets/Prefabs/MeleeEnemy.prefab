@@ -185,7 +185,7 @@ MonoBehaviour:
   minPingPongHeight: 1
   enemyObject: {fileID: 7578422569812713012}
   hitParticle: {fileID: 5559349401309048093, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
-  health: 5
+  health: 20
   inVulnerabilityTime: 0.2
   damageAmount: 5
   attackSphereRadius: 1
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5559349401309048080, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
       propertyPath: playOnAwake
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5559349401309048093, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
       propertyPath: m_Name

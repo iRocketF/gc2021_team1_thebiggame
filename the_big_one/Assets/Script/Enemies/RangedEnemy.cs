@@ -122,7 +122,7 @@ public class RangedEnemy : Enemies
         if (!isInVulnerable)
         {
             health -= damage;
-
+            shootTimer = shootTimerAmount;
         }
 
         if (health <= 0)
