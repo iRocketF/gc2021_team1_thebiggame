@@ -281,9 +281,10 @@ MonoBehaviour:
   pController: {fileID: 0}
   pAnimator: {fileID: 0}
   hitZone: {fileID: 0}
-  moveSpeed: 8
+  camera: {fileID: 0}
+  moveSpeed: 7
   gravity: -9.81
-  rotSmooth: 15
+  rotSmooth: 14
   hitZoneTime: 0.1
   immobilityTime: 0.3
 --- !u!143 &4176003322055695224

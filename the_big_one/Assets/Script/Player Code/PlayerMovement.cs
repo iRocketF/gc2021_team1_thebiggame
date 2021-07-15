@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController pController;
     public Animator pAnimator;
     public BoxCollider hitZone;
-    public Camera camera;
+    public Camera pCamera;
 
     public float moveSpeed;
     public float gravity;
@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         pAnimator = GetComponentInChildren<Animator>();
         pController = GetComponent<CharacterController>();
         hitZone = GetComponentInChildren<BoxCollider>();
+        pCamera = FindObjectOfType<Camera>();
 
         hitZone.enabled = false;
 
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
 
         pAnimator.SetTrigger("Strike");
 
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = pCamera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
