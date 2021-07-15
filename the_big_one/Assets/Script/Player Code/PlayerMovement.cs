@@ -7,17 +7,24 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController pController;
     public Animator pAnimator;
     public BoxCollider hitZone;
+    public Camera camera;
 
     public float moveSpeed;
     public float gravity;
+    public float rotSmooth;
 
     public float hitZoneTime;
-    public float timer;
+    private float hitZoneTimer;
+
+    public float immobilityTime;
+    private float immobilityTimer;
 
     Vector3 forward, right;
 
     private Vector3 velocity;
     private Quaternion lastRotation;
+
+    private bool isImmobile;
 
     void Start()
     {
@@ -38,18 +45,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Move();
+        if(!isImmobile)
+            Move();
 
         if (Input.GetButtonDown("Fire1"))
             Attack();
 
-        if (hitZone.enabled && timer < hitZoneTime)
-            timer += Time.deltaTime;
-        else if (timer >= hitZoneTime)
-        {
-            timer = 0f;
-            hitZone.enabled = false;
-        }
+        Timers();
 
     }
 
@@ -68,8 +70,13 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        if(heading != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(heading);
+        if (heading != Vector3.zero)
+        {
+            var newRotation = Quaternion.LookRotation(heading);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * rotSmooth);
+        }
+            
+
 
         if (horizontal !=0 || vertical != 0)
         {
@@ -88,9 +95,46 @@ public class PlayerMovement : MonoBehaviour
     
     void Attack()
     {
+        isImmobile = true;
+        immobilityTimer = 0f;
+
         pAnimator.SetTrigger("Strike");
+
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            var target = hitInfo.point;
+            transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
+            lastRotation = transform.rotation;
+        }
 
         hitZone.enabled = true;
 
+    }
+
+    void Timers()
+    {
+        if (hitZone.enabled && hitZoneTimer < hitZoneTime)
+        {
+            hitZoneTimer += Time.deltaTime;
+        }
+
+        else if (hitZoneTimer >= hitZoneTime)
+        {
+            hitZoneTimer = 0f;
+            hitZone.enabled = false;
+        }
+
+        if(isImmobile)
+        {
+            immobilityTimer += Time.deltaTime;
+
+            if (immobilityTimer >= immobilityTime)
+            {
+                isImmobile = false;
+                immobilityTimer = 0f;
+            }
+        }
     }
 }

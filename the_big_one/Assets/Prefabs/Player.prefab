@@ -283,8 +283,9 @@ MonoBehaviour:
   hitZone: {fileID: 0}
   moveSpeed: 8
   gravity: -9.81
+  rotSmooth: 15
   hitZoneTime: 0.1
-  timer: 0
+  immobilityTime: 0.3
 --- !u!143 &4176003322055695224
 CharacterController:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69e614edaa0524ab11b7728e359cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 4
+  damage: 3
 --- !u!95 &990878471813165082
 Animator:
   serializedVersion: 3

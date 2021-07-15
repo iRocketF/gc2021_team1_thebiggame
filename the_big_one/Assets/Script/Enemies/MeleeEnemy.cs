@@ -104,6 +104,8 @@ public class MeleeEnemy : Enemies
         Debug.Log("You hit me");
         if (!isInVulnerable)
         {
+            GameObject hitParticleClone = Instantiate(hitParticle, enemyObject.transform.position, enemyObject.transform.rotation);
+
             health -= damage;
             attackTimer = attackTimerAmount;
 
@@ -111,7 +113,6 @@ public class MeleeEnemy : Enemies
         
         if (health <= 0)
         {
-            GameObject hitParticleClone = Instantiate(hitParticle, enemyObject.transform.position, enemyObject.transform.rotation);
             DeActivate();
         }
         else
