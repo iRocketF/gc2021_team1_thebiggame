@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class IsoCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform target;
+    public float smoothing;
+    Vector3 offset;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        target = GameObject.FindWithTag("Player").transform;
+        offset = transform.position - target.position;
+    }
+    // Update is called once per frame
+    void LateUpdate()
+    {
+        Vector3 targetCamPos = target.position + offset;
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
     }
 }
