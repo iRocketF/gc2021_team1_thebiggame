@@ -101,7 +101,6 @@ public class MeleeEnemy : Enemies
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("You hit me");
         if (!isInVulnerable)
         {
             GameObject hitParticleClone = Instantiate(hitParticle, enemyObject.transform.position, enemyObject.transform.rotation);

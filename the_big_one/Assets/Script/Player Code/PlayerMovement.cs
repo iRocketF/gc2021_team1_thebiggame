@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isImmobile;
 
+    void Awake()
+    {
+        transform.position = FindObjectOfType<StartingPosition>().GetPosition();
+    }
+
     void Start()
     {
         pAnimator = GetComponentInChildren<Animator>();
@@ -40,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
         forward = Vector3.Normalize(forward);
 
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-
-        transform.position = FindObjectOfType<StartingPosition>().GetPosition();
     }
 
     void Update()
