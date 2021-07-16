@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    private GameManager manager;
+
     public float maxHealth;
     public float currentHealth;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        manager = GameManager.Instance;
+
+        if (manager.playerHP > 0)
+            currentHealth = manager.playerHP;
+        else
+            currentHealth = maxHealth;
     }
 
     public void TakeDamage(float damage)

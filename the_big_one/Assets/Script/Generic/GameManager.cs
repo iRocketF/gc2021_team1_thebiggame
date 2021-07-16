@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private int currentLevel;
     private int lastLevel = 5;  // Always one smaller than the real last level
 
+    [SerializeField] float chamberHeal;
+    public float playerHP;
+
     public static GameManager Instance
     {
         get
@@ -95,6 +98,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadFirstLevel()
     {
+        playerHP = 0f;
+
         currentLevel = 0;
         ChooseRandomLevels();
         SceneManager.LoadScene(levelOrder[0]);
@@ -104,6 +109,16 @@ public class GameManager : MonoBehaviour
     {
         if (currentLevel < lastLevel)
         {
+            PlayerHealth pHealth = FindObjectOfType<PlayerHealth>();
+            playerHP = pHealth.currentHealth;
+
+            if(playerHP < pHealth.maxHealth)
+            {
+                playerHP += chamberHeal;
+                if (playerHP > pHealth.maxHealth)
+                    playerHP = pHealth.maxHealth;
+            }
+
             Debug.Log("Next level");
             currentLevel++;
             int level = levelOrder[currentLevel];
