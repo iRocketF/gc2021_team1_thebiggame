@@ -14,11 +14,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] int[] levelList1;
     [SerializeField] int[] levelList2;
     [SerializeField] int[] levelList3;
+    [SerializeField] int[] levelList4;
+    [SerializeField] int[] levelList5;
 
     private int[] levelOrder;
 
     private int currentLevel;
-    private int lastLevel = 3;  // Always one smaller than the real last level
+    private int lastLevel = 5;  // Always one smaller than the real last level
 
     public static GameManager Instance
     {
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.N))
         {
-            LoadNextLevel();
+            FindObjectOfType<ExitHandler>().OpenExit();
         }
     }
 
@@ -78,6 +80,12 @@ public class GameManager : MonoBehaviour
                 break;
             case 3:
                 levelOrder = levelList3;
+                break;
+            case 4:
+                levelOrder = levelList4;
+                break;
+            case 5:
+                levelOrder = levelList5;
                 break;
             default:
                 levelOrder = levelList1;
@@ -107,7 +115,6 @@ public class GameManager : MonoBehaviour
             ChooseRandomLevels();
             LoadFirstLevel();
         }
-        
     }
 
     public void LoadMenu()
