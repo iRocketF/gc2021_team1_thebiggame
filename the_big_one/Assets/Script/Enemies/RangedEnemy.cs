@@ -16,6 +16,7 @@ public class RangedEnemy : Enemies
 
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject hitParticle;
 
     [SerializeField] private float minDistance = 1f;
     [SerializeField] private float maxDistance = 3f;
@@ -121,6 +122,8 @@ public class RangedEnemy : Enemies
         Debug.Log("You hit me");
         if (!isInVulnerable)
         {
+            GameObject hitParticleClone = Instantiate(hitParticle, transform.position, transform.rotation);
+
             health -= damage;
             shootTimer = shootTimerAmount;
         }

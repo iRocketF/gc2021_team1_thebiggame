@@ -139,6 +139,7 @@ MonoBehaviour:
   inVulnerabilityTime: 0.2
   projectile: {fileID: 1637566977038157469, guid: d197ea34544c38c4fa501ad0b690a711, type: 3}
   spawnPoint: {fileID: 7362737019676284668}
+  hitParticle: {fileID: 5559349401309048093, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
   minDistance: 6
   maxDistance: 10
   targetThreshold: 1.2
