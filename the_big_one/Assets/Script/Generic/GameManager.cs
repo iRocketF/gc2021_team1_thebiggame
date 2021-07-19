@@ -57,11 +57,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            LoadMenu();
-        }
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             FindObjectOfType<ExitHandler>().OpenExit();
