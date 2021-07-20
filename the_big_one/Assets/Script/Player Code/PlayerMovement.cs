@@ -26,6 +26,18 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isImmobile;
 
+    // dash stuff
+    public float dashCooldown; // how long until the player can dash again
+    private float dashTimer; // counts time from last dash
+    public float dashSpeed; // how fast the dash moves
+    public float maxDashLength; // absolute max length of the dash
+    private float dashRatio; // used for lerp
+    private Vector3 ogPosition; // where the dash starts
+    private Vector3 dashDirection; // direction of the dash
+    private Vector3 dashPosition; // where the dash finishes
+    public bool isDashing;
+    public bool hasDashed;
+
     void Awake()
     {
         transform.position = FindObjectOfType<StartingPosition>().GetPosition();
@@ -54,6 +66,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
             Attack();
+
+        if (Input.GetButtonDown("Fire2"))
+            Dash();
+        else if (isDashing)
+            DashLerp();
 
         Timers();
 
@@ -115,6 +132,42 @@ public class PlayerMovement : MonoBehaviour
 
         hitZone.enabled = true;
 
+    }
+
+    void Dash()
+    {
+        ogPosition = transform.position;
+        dashDirection = transform.forward;
+        dashDirection.y = 0f;
+        dashDirection.Normalize();
+
+        float dashLength = maxDashLength;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, dashDirection, out hit, dashLength))
+            dashLength = hit.distance;
+        else
+            dashLength = maxDashLength;
+
+        dashPosition = transform.position + (dashDirection * dashLength);
+
+        if (dashPosition != ogPosition)
+            isDashing = true;
+    }
+
+    void DashLerp()
+    {
+        dashRatio = dashRatio + (Time.deltaTime * dashSpeed);
+
+        transform.position = Vector3.Lerp(ogPosition, dashPosition, dashRatio);
+
+        if (dashRatio >= 1f)
+        {
+            isDashing = false;
+            hasDashed = true;
+            dashRatio = 0f;
+        }
     }
 
     void Timers()
