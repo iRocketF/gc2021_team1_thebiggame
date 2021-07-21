@@ -27,7 +27,7 @@ public class RangedEnemy : Enemies
 
     private float moveTimer;
     [SerializeField] private float moveTimerAmount = 5f;
-    private bool isMoving;
+    private bool isMoving = true;
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
@@ -52,6 +52,7 @@ public class RangedEnemy : Enemies
         {
             isMoving = false;
             moveTimer = moveTimerAmount;
+            animator.SetTrigger("idle");
         }
 
         moveTimer -= Time.deltaTime;
@@ -69,6 +70,15 @@ public class RangedEnemy : Enemies
         }
 
         EvadePlayer();
+
+        if (isMoving)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void GetNewDestination()
@@ -117,9 +127,15 @@ public class RangedEnemy : Enemies
 
         if (shootTimer <= 0)
         {
-            GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            animator.SetTrigger("attack");
+            Invoke("InstantiateMissile", 0.9f);
             shootTimer = shootTimerAmount;
         }
+    }
+
+    void InstantiateMissile()
+    {
+        GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
     }
 
     public void TakeDamage(int damage)
