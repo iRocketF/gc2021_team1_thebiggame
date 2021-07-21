@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
             Die();
     }
 
-    void AddHealth(float healthAmount)
+    public void AddHealth(float healthAmount)
     {
         currentHealth += healthAmount;
 
