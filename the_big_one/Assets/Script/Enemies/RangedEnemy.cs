@@ -37,6 +37,8 @@ public class RangedEnemy : Enemies
     [SerializeField] private float evadeTimerAmount = 3;
     private float evadeTimer;
 
+    [SerializeField] private Animator animator;
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -106,7 +108,10 @@ public class RangedEnemy : Enemies
 
     private void Shoot()
     {
-        transform.LookAt(player.transform.position);
+        Vector3 targetPos = new Vector3(player.transform.position.x, 
+                                        this.transform.position.y,
+                                        player.transform.position.z);
+        this.transform.LookAt(targetPos);
 
         shootTimer -= Time.deltaTime;
 
