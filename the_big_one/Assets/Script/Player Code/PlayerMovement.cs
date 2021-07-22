@@ -64,10 +64,10 @@ public class PlayerMovement : MonoBehaviour
         if(!isImmobile)
             Move();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !isDashing)
             Attack();
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !hasDashed)
             Dash();
         else if (isDashing)
             DashLerp();
@@ -136,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
+        pAnimator.SetTrigger("Dash");
+
         ogPosition = transform.position;
         dashDirection = transform.forward;
         dashDirection.y = 0f;
@@ -191,6 +193,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 isImmobile = false;
                 immobilityTimer = 0f;
+            }
+        }
+
+        if (hasDashed)
+        {
+            dashTimer += Time.deltaTime;
+
+            if (dashTimer >= dashCooldown)
+            {
+                hasDashed = false;
+                dashTimer = 0f;
             }
         }
     }
