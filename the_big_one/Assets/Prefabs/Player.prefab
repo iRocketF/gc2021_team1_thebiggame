@@ -687,6 +687,11 @@ MonoBehaviour:
   rotSmooth: 14
   hitZoneTime: 0.1
   immobilityTime: 0.3
+  dashCooldown: 0.5
+  dashSpeed: 4
+  maxDashLength: 4
+  isDashing: 0
+  hasDashed: 0
 --- !u!143 &4176003322055695224
 CharacterController:
   m_ObjectHideFlags: 0
