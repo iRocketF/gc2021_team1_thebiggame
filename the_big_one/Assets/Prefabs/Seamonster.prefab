@@ -86,7 +86,7 @@ MonoBehaviour:
   agent: {fileID: 1266453137816799551}
   health: 15
   inVulnerabilityTime: 0.2
-  projectile: {fileID: 1637566977038157469, guid: d197ea34544c38c4fa501ad0b690a711, type: 3}
+  projectile: {fileID: 8573861175608354459, guid: 8d46d08f1373ca44aa250701dc0b84a6, type: 3}
   spawnPoint: {fileID: 1266453138732140652}
   hitParticle: {fileID: 5559349401309048093, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
   minDistance: 10
