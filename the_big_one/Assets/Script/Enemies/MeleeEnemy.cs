@@ -30,6 +30,8 @@ public class MeleeEnemy : Enemies
     [SerializeField] private float attackTimerAmount = 2f;
     private float attackTimer;
 
+    [SerializeField] private GameObject healthPickUp;
+
     public void Start()
     {
         player = GameObject.Find("Player");
@@ -96,6 +98,9 @@ public class MeleeEnemy : Enemies
     public virtual void DeActivate()
     {
         FindObjectOfType<ExitHandler>().EnemyKilled();
+
+        DropHealth();
+
         base.Deactivate();
     }
 
@@ -131,5 +136,19 @@ public class MeleeEnemy : Enemies
         pingPongSpeed = Random.Range(0.2f, 0.6f);
 
         attackTimer = attackTimerAmount;
+    }
+
+    void DropHealth()
+    {
+        int dropChance = Random.Range(1, 11);
+
+        Debug.Log(dropChance);
+
+        if (dropChance == 5)
+        {
+            Vector3 dropPos = transform.position;
+            dropPos.y = 2f;
+            Instantiate(healthPickUp, dropPos, Quaternion.identity);
+        }
     }
 }

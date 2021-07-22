@@ -100,6 +100,7 @@ MonoBehaviour:
     m_Bits: 128
   evadeTimerAmount: 3
   animator: {fileID: 799326085}
+  healthPickUp: {fileID: 578572665935180467, guid: a495ddc16b4fbff4bb56fb1a04676201, type: 3}
 --- !u!54 &1266453137816799537
 Rigidbody:
   m_ObjectHideFlags: 0

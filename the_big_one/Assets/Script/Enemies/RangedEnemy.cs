@@ -38,6 +38,7 @@ public class RangedEnemy : Enemies
     private float evadeTimer;
 
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject healthPickUp;
 
     void Start()
     {
@@ -191,6 +192,9 @@ public class RangedEnemy : Enemies
     public virtual void DeActivate()
     {
         FindObjectOfType<ExitHandler>().EnemyKilled();
+
+        DropHealth();
+
         base.Deactivate();
     }
 
@@ -202,5 +206,19 @@ public class RangedEnemy : Enemies
         evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
+    }
+
+    void DropHealth()
+    {
+        int dropChance = Random.Range(1, 11);
+
+        Debug.Log(dropChance);
+
+        if (dropChance == 5)
+        {
+            Vector3 dropPos = transform.position;
+            dropPos.y = 2f;
+            Instantiate(healthPickUp, dropPos, Quaternion.identity);
+        }
     }
 }
