@@ -22,6 +22,10 @@ public class PlayerMovement : MonoBehaviour
     public float immobilityTime;
     private float immobilityTimer;
 
+    public float throwCoolDown;
+    private float throwTimer;
+    private bool hasThrown;
+
     Vector3 forward, right;
 
     private Vector3 velocity;
@@ -75,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && !isDashing && !isDead)
             Attack();
 
-        if (Input.GetButtonDown("Fire2") && !isDashing && !isDead)
+        if (Input.GetButtonDown("Fire2") && !isDashing && !isDead && !hasThrown)
             RangedAttack();
 
         if (Input.GetButtonDown("Dash") && !hasDashed && !isDead)
@@ -148,6 +152,7 @@ public class PlayerMovement : MonoBehaviour
     void RangedAttack()
     {
         isImmobile = true;
+        hasThrown = true;
         immobilityTimer = 0f;
 
         pAnimator.SetTrigger("Throw");
@@ -242,6 +247,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 hasDashed = false;
                 dashTimer = 0f;
+            }
+        }
+
+        if (hasThrown)
+        {
+            throwTimer += Time.deltaTime;
+
+            if (throwTimer >= throwCoolDown)
+            {
+                hasThrown = false;
+                throwTimer = 0f;
             }
         }
     }

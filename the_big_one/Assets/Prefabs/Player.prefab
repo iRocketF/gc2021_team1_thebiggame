@@ -788,6 +788,7 @@ MonoBehaviour:
   rotSmooth: 14
   hitZoneTime: 0.1
   immobilityTime: 0.3
+  throwCoolDown: 0.6
   dashCooldown: 0.5
   dashSpeed: 4
   maxDashLength: 4
