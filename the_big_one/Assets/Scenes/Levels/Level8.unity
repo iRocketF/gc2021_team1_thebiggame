@@ -1275,7 +1275,7 @@ Transform:
   m_LocalScale: {x: 0.50001, y: 1, z: 2.0001254}
   m_Children: []
   m_Father: {fileID: 1494982547}
-  m_RootOrder: 12
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &519847942 stripped
 Transform:
@@ -2007,11 +2007,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 722465063}
   m_LocalRotation: {x: -0.49999997, y: 0.49999997, z: -0.50000006, w: 0.5000001}
-  m_LocalPosition: {x: 1, y: 2.3749967, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 2.0001254}
+  m_LocalPosition: {x: -9, y: 2.3749967, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 4.0000505}
   m_Children: []
   m_Father: {fileID: 1494982547}
-  m_RootOrder: 11
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
 --- !u!1001 &739125754
 PrefabInstance:
@@ -4480,8 +4480,11 @@ Transform:
   m_LocalPosition: {x: -1, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1983230922}
+  - {fileID: 722465067}
   - {fileID: 1147776886}
   - {fileID: 588490388}
+  - {fileID: 477234695}
   - {fileID: 212862681}
   - {fileID: 1963810745}
   - {fileID: 443617020}
@@ -4490,22 +4493,19 @@ Transform:
   - {fileID: 1323953337}
   - {fileID: 2023993174}
   - {fileID: 83972069}
-  - {fileID: 1983230922}
-  - {fileID: 722465067}
-  - {fileID: 477234695}
   - {fileID: 1149480184}
   - {fileID: 1836758668}
   - {fileID: 1601084916}
   - {fileID: 328356360}
   - {fileID: 1501844454}
+  - {fileID: 1032494377}
   - {fileID: 806537508}
+  - {fileID: 2129631976}
   - {fileID: 1421205505}
   - {fileID: 393549427}
   - {fileID: 549958528}
   - {fileID: 1435272945}
   - {fileID: 379994132}
-  - {fileID: 2129631976}
-  - {fileID: 1032494377}
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5368,7 +5368,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 1, z: 2.0001254}
   m_Children: []
   m_Father: {fileID: 1494982547}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
 --- !u!1001 &1985219338
 PrefabInstance:
