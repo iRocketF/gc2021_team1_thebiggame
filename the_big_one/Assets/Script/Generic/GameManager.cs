@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
         {
             FindObjectOfType<ExitHandler>().OpenExit();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
+        }
     }
 
     void ChooseRandomLevels()
@@ -130,5 +135,10 @@ public class GameManager : MonoBehaviour
     public void LoadMenu()
     {
         SceneManager.LoadScene(menu);
+    }
+
+    void Restart()
+    {
+        LoadFirstLevel();
     }
 }
