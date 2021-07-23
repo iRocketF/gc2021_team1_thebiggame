@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public Animator pAnimator;
     public BoxCollider hitZone;
     public Camera pCamera;
+    public Transform rangedProjSpawn;
+    public GameObject harpoon;
 
     public float moveSpeed;
     public float gravity;
@@ -73,7 +75,10 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && !isDashing && !isDead)
             Attack();
 
-        if (Input.GetButtonDown("Fire2") && !hasDashed && !isDead)
+        if (Input.GetButtonDown("Fire2") && !isDashing && !isDead)
+            RangedAttack();
+
+        if (Input.GetButtonDown("Dash") && !hasDashed && !isDead)
             Dash();
         else if (isDashing)
             DashLerp();
@@ -138,6 +143,33 @@ public class PlayerMovement : MonoBehaviour
 
         hitZone.enabled = true;
 
+    }
+
+    void RangedAttack()
+    {
+        isImmobile = true;
+        immobilityTimer = 0f;
+
+        pAnimator.SetTrigger("Throw");
+
+        Ray ray = pCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            var target = hitInfo.point;
+            transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
+            lastRotation = transform.rotation;
+        }
+
+        Invoke("InstantiateHarpoon", 0.25f);
+
+        // HarpoonProjectile projectile = harpoonClone.GetComponent<HarpoonProjectile>();
+        // projectile.AddForce();
+    }
+
+    void InstantiateHarpoon()
+    {
+        GameObject harpoonClone = Instantiate(harpoon, rangedProjSpawn.position, rangedProjSpawn.rotation);
     }
 
     void Dash()
