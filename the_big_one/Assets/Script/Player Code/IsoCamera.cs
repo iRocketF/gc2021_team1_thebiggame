@@ -13,7 +13,7 @@ public class IsoCamera : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         offset = transform.position - target.position;
     }
-    // Update is called once per frame
+
     void LateUpdate()
     {
         Vector3 targetCamPos = target.position + offset;

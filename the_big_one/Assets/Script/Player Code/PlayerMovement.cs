@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController pController;
+    public PlayerHealth pHealth;
     public Animator pAnimator;
     public BoxCollider hitZone;
     public Camera pCamera;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Quaternion lastRotation;
 
     private bool isImmobile;
+    private bool isDead;
 
     // dash stuff
     public float dashCooldown; // how long until the player can dash again
@@ -45,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        pHealth = GetComponent<PlayerHealth>();
         pAnimator = GetComponentInChildren<Animator>();
         pController = GetComponent<CharacterController>();
         hitZone = GetComponentInChildren<BoxCollider>();
@@ -61,13 +64,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(!isImmobile)
+        if (pHealth.currentHealth <= 0f)
+            isDead = true;
+
+        if(!isImmobile && !isDead)
             Move();
 
-        if (Input.GetButtonDown("Fire1") && !isDashing)
+        if (Input.GetButtonDown("Fire1") && !isDashing && !isDead)
             Attack();
 
-        if (Input.GetButtonDown("Fire2") && !hasDashed)
+        if (Input.GetButtonDown("Fire2") && !hasDashed && !isDead)
             Dash();
         else if (isDashing)
             DashLerp();

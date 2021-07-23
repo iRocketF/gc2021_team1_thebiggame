@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     private GameManager manager;
+    [SerializeField] private GameObject pModel;
 
     public float maxHealth;
     public float currentHealth;
@@ -37,6 +38,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        pModel.SetActive(false);
     }
 }
