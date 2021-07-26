@@ -5,9 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController pController;
+    public PlayerHealth pHealth;
     public Animator pAnimator;
     public BoxCollider hitZone;
     public Camera pCamera;
+    public Transform rangedProjSpawn;
+    public GameObject harpoon;
 
     public float moveSpeed;
     public float gravity;
@@ -19,12 +22,29 @@ public class PlayerMovement : MonoBehaviour
     public float immobilityTime;
     private float immobilityTimer;
 
+    public float throwCoolDown;
+    private float throwTimer;
+    private bool hasThrown;
+
     Vector3 forward, right;
 
     private Vector3 velocity;
     private Quaternion lastRotation;
 
     private bool isImmobile;
+    private bool isDead;
+
+    // dash stuff
+    public float dashCooldown; // how long until the player can dash again
+    private float dashTimer; // counts time from last dash
+    public float dashSpeed; // how fast the dash moves
+    public float maxDashLength; // absolute max length of the dash
+    private float dashRatio; // used for lerp
+    private Vector3 ogPosition; // where the dash starts
+    private Vector3 dashDirection; // direction of the dash
+    private Vector3 dashPosition; // where the dash finishes
+    public bool isDashing;
+    public bool hasDashed;
 
     void Awake()
     {
@@ -33,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        pHealth = GetComponent<PlayerHealth>();
         pAnimator = GetComponentInChildren<Animator>();
         pController = GetComponent<CharacterController>();
         hitZone = GetComponentInChildren<BoxCollider>();
@@ -49,11 +70,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(!isImmobile)
+        if (pHealth.currentHealth <= 0f)
+            isDead = true;
+
+        if(!isImmobile && !isDead)
             Move();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !isDashing && !isDead)
             Attack();
+
+        if (Input.GetButtonDown("Fire2") && !isDashing && !isDead && !hasThrown)
+            RangedAttack();
+
+        if (Input.GetButtonDown("Dash") && !hasDashed && !isDead)
+            Dash();
+        else if (isDashing)
+            DashLerp();
 
         Timers();
 
@@ -117,6 +149,72 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void RangedAttack()
+    {
+        isImmobile = true;
+        hasThrown = true;
+        immobilityTimer = 0f;
+
+        pAnimator.SetTrigger("Throw");
+
+        Ray ray = pCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            var target = hitInfo.point;
+            transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
+            lastRotation = transform.rotation;
+        }
+
+        Invoke("InstantiateHarpoon", 0.25f);
+
+        // HarpoonProjectile projectile = harpoonClone.GetComponent<HarpoonProjectile>();
+        // projectile.AddForce();
+    }
+
+    void InstantiateHarpoon()
+    {
+        GameObject harpoonClone = Instantiate(harpoon, rangedProjSpawn.position, rangedProjSpawn.rotation);
+    }
+
+    void Dash()
+    {
+        pAnimator.SetTrigger("Dash");
+
+        ogPosition = transform.position;
+        dashDirection = transform.forward;
+        dashDirection.y = 0f;
+        dashDirection.Normalize();
+
+        float dashLength = maxDashLength;
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, dashDirection, out hit, dashLength))
+            dashLength = hit.distance;
+        else
+            dashLength = maxDashLength;
+
+        dashPosition = transform.position + (dashDirection * dashLength);
+
+        if (dashPosition != ogPosition)
+            isDashing = true;
+    }
+
+    void DashLerp()
+    {
+        dashRatio = dashRatio + (Time.deltaTime * dashSpeed);
+
+        transform.position = Vector3.Lerp(ogPosition, dashPosition, dashRatio);
+
+        if (dashRatio >= 1f)
+        {
+            isDashing = false;
+            hasDashed = true;
+            dashRatio = 0f;
+        }
+    }
+
     void Timers()
     {
         if (hitZone.enabled && hitZoneTimer < hitZoneTime)
@@ -138,6 +236,28 @@ public class PlayerMovement : MonoBehaviour
             {
                 isImmobile = false;
                 immobilityTimer = 0f;
+            }
+        }
+
+        if (hasDashed)
+        {
+            dashTimer += Time.deltaTime;
+
+            if (dashTimer >= dashCooldown)
+            {
+                hasDashed = false;
+                dashTimer = 0f;
+            }
+        }
+
+        if (hasThrown)
+        {
+            throwTimer += Time.deltaTime;
+
+            if (throwTimer >= throwCoolDown)
+            {
+                hasThrown = false;
+                throwTimer = 0f;
             }
         }
     }

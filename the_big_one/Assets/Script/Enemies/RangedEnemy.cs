@@ -27,7 +27,7 @@ public class RangedEnemy : Enemies
 
     private float moveTimer;
     [SerializeField] private float moveTimerAmount = 5f;
-    private bool isMoving;
+    private bool isMoving = true;
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
@@ -36,6 +36,9 @@ public class RangedEnemy : Enemies
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float evadeTimerAmount = 3;
     private float evadeTimer;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private GameObject healthPickUp;
 
     void Start()
     {
@@ -50,6 +53,7 @@ public class RangedEnemy : Enemies
         {
             isMoving = false;
             moveTimer = moveTimerAmount;
+            animator.SetTrigger("idle");
         }
 
         moveTimer -= Time.deltaTime;
@@ -67,6 +71,15 @@ public class RangedEnemy : Enemies
         }
 
         EvadePlayer();
+
+        if (isMoving)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void GetNewDestination()
@@ -106,15 +119,24 @@ public class RangedEnemy : Enemies
 
     private void Shoot()
     {
-        transform.LookAt(player.transform.position);
+        Vector3 targetPos = new Vector3(player.transform.position.x, 
+                                        this.transform.position.y,
+                                        player.transform.position.z);
+        this.transform.LookAt(targetPos);
 
         shootTimer -= Time.deltaTime;
 
         if (shootTimer <= 0)
         {
-            GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            animator.SetTrigger("attack");
+            Invoke("InstantiateMissile", 0.9f);
             shootTimer = shootTimerAmount;
         }
+    }
+
+    void InstantiateMissile()
+    {
+        GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
     }
 
     public void TakeDamage(int damage)
@@ -170,6 +192,9 @@ public class RangedEnemy : Enemies
     public virtual void DeActivate()
     {
         FindObjectOfType<ExitHandler>().EnemyKilled();
+
+        DropHealth();
+
         base.Deactivate();
     }
 
@@ -181,5 +206,19 @@ public class RangedEnemy : Enemies
         evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
+    }
+
+    void DropHealth()
+    {
+        int dropChance = Random.Range(1, 11);
+
+        Debug.Log(dropChance);
+
+        if (dropChance == 5)
+        {
+            Vector3 dropPos = transform.position;
+            dropPos.y = 2f;
+            Instantiate(healthPickUp, dropPos, Quaternion.identity);
+        }
     }
 }

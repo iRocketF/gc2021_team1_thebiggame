@@ -46,7 +46,7 @@ MonoBehaviour:
   pools:
   - tag: Melee
     prefab: {fileID: 7578422570048403560, guid: a21ec964ff612db4190105454af749ee, type: 3}
-    size: 10
+    size: 20
   - tag: Ranged
-    prefab: {fileID: 7362737018255475194, guid: 5dcb8cb623973cf44a3735651f4590eb, type: 3}
-    size: 10
+    prefab: {fileID: 1266453137816799536, guid: b695662b8c32ae04d829e67eb2daaf5d, type: 3}
+    size: 20

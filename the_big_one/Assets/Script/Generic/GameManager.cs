@@ -57,14 +57,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            LoadMenu();
-        }
-
         if (Input.GetKeyDown(KeyCode.N))
         {
             FindObjectOfType<ExitHandler>().OpenExit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
         }
     }
 
@@ -135,5 +135,10 @@ public class GameManager : MonoBehaviour
     public void LoadMenu()
     {
         SceneManager.LoadScene(menu);
+    }
+
+    void Restart()
+    {
+        LoadFirstLevel();
     }
 }
