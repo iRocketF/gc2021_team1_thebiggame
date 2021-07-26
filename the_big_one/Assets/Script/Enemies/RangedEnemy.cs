@@ -39,6 +39,8 @@ public class RangedEnemy : Enemies
 
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject healthPickUp;
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioClip[] hurtSounds;
 
     void Start()
     {
@@ -145,6 +147,10 @@ public class RangedEnemy : Enemies
         if (!isInVulnerable)
         {
             GameObject hitParticleClone = Instantiate(hitParticle, transform.position, transform.rotation);
+
+            float hitNumber = Random.Range(0, hurtSounds.Length);
+            hurtSound.clip = hurtSounds[Mathf.RoundToInt(hitNumber)];
+            hurtSound.Play();
 
             health -= damage;
             shootTimer = shootTimerAmount;
