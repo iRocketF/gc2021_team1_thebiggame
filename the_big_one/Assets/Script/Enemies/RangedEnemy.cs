@@ -33,6 +33,7 @@ public class RangedEnemy : Enemies
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
+    [SerializeField] private float shootIncrease = 1.1f;
 
     [SerializeField] private float evadeSphereRadius = 5f;
     [SerializeField] private LayerMask layerMask;
@@ -133,6 +134,9 @@ public class RangedEnemy : Enemies
         if (shootTimer <= 0)
         {
             animator.SetTrigger("attack");
+
+            float timer = 0.9f * Mathf.Pow(shootIncrease, GameManager.Instance.loopCounter);
+
             Invoke("InstantiateMissile", 0.9f);
             shootTimer = shootTimerAmount;
         }
@@ -230,6 +234,13 @@ public class RangedEnemy : Enemies
         else
         {
             agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
+
+        float originalShootTime = shootTimerAmount;
+
+        if (loopCount != 0)
+        {
+            shootTimerAmount = originalShootTime * Mathf.Pow(shootIncrease, loopCount);
         }
     }
 

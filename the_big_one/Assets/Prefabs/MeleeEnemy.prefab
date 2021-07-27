@@ -192,4 +192,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   attackTimerAmount: 2
+  attackSpeedIncrease: 0.9
   healthPickUp: {fileID: 578572665935180467, guid: a495ddc16b4fbff4bb56fb1a04676201, type: 3}
+  speedIncrease: 1.1

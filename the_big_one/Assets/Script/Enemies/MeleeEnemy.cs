@@ -29,6 +29,8 @@ public class MeleeEnemy : Enemies
 
     [SerializeField] private float attackTimerAmount = 2f;
     private float attackTimer;
+    [SerializeField] private float attackSpeedIncrease = 1.1f;
+    private float originalAttackTime;
 
     [SerializeField] private GameObject healthPickUp;
 
@@ -144,8 +146,9 @@ public class MeleeEnemy : Enemies
 
     void SetDifficulty()
     {
-        originalSpeed = agent.speed;
         int loopCount = GameManager.Instance.loopCounter;
+
+        originalSpeed = agent.speed;
 
         if (loopCount == 0)
         {
@@ -154,6 +157,13 @@ public class MeleeEnemy : Enemies
         else
         {
             agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
+
+        originalAttackTime = attackTimerAmount;
+
+        if (loopCount != 0)
+        {
+            attackTimerAmount = attackSpeedIncrease * Mathf.Pow(attackSpeedIncrease, loopCount);
         }
     }
 

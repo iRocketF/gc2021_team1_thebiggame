@@ -94,7 +94,9 @@ MonoBehaviour:
   maxDistance: 12
   targetThreshold: 1.2
   moveTimerAmount: 5
+  speedIncrease: 1.1
   shootTimerAmount: 2
+  shootIncrease: 0.9
   evadeSphereRadius: 5
   layerMask:
     serializedVersion: 2
