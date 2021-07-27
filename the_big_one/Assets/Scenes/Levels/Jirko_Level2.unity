@@ -1275,6 +1275,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puddle (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7248908320493723614, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -2095,6 +2099,10 @@ PrefabInstance:
     - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_Name
       value: Puddle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7248908320493723614, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_RootOrder
@@ -3707,6 +3715,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Puddle (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7248908320493723614, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_RootOrder
       value: 27
@@ -4326,7 +4338,7 @@ PrefabInstance:
     - target: {fileID: 6851299184273578087, guid: db4b1577126b93f4da21b31486df3221, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: abe758034932f9549a2aa9ff6d7e2766, type: 2}
+      objectReference: {fileID: 23800000, guid: 43776dd4daca0a949909ed4332aaf75f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db4b1577126b93f4da21b31486df3221, type: 3}
 --- !u!1001 &640659251
@@ -4423,6 +4435,10 @@ PrefabInstance:
     - target: {fileID: 124702749308289361, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
       propertyPath: m_Name
       value: Sunray_big (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 124702749308289361, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 788368331139275755, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
       propertyPath: m_RootOrder
@@ -4999,6 +5015,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sunray_small (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
 --- !u!1001 &715574339
@@ -5396,7 +5416,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -5605,6 +5625,10 @@ PrefabInstance:
     - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_Name
       value: Puddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7248908320493723586, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7248908320493723614, guid: f1dd1c5d3567e1c4490cd3a56c436a75, type: 3}
       propertyPath: m_RootOrder
@@ -5844,6 +5868,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sunray_big
       objectReference: {fileID: 0}
+    - target: {fileID: 124702749308289361, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 788368331139275755, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -5900,6 +5928,10 @@ PrefabInstance:
     - target: {fileID: 124702749308289361, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
       propertyPath: m_Name
       value: Sunray_big (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 124702749308289361, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 788368331139275755, guid: 67ed15de4f0a6e54e93ccfd359184a3e, type: 3}
       propertyPath: m_RootOrder
@@ -6363,6 +6395,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
       propertyPath: m_Name
       value: Sunray_small (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
@@ -11780,6 +11816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sunray_small
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
 --- !u!1001 &1956075884
@@ -12653,6 +12693,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
       propertyPath: m_Name
       value: Sunray_small (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 928d582a7d810d24994d769afb6090cf, type: 3}
