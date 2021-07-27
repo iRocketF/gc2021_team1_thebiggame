@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private int currentLevel;
     private int lastLevel = 5;  // Always one smaller than the real last level
+    public int loopCounter;
 
     [SerializeField] float chamberHeal;
     public float playerHP;
@@ -102,6 +103,12 @@ public class GameManager : MonoBehaviour
 
         currentLevel = 0;
         ChooseRandomLevels();
+
+        if (SceneManager.GetActiveScene().buildIndex == menu)
+        {
+            loopCounter = 0;
+        }
+
         SceneManager.LoadScene(levelOrder[0]);
     }
 
@@ -127,7 +134,7 @@ public class GameManager : MonoBehaviour
         else if (currentLevel == lastLevel)
         {
             Debug.Log("Max level reached, starting again");
-            ChooseRandomLevels();
+            loopCounter++;
             LoadFirstLevel();
         }
     }
@@ -139,6 +146,7 @@ public class GameManager : MonoBehaviour
 
     void Restart()
     {
+        loopCounter = 0;
         LoadFirstLevel();
     }
 }

@@ -28,6 +28,8 @@ public class RangedEnemy : Enemies
     private float moveTimer;
     [SerializeField] private float moveTimerAmount = 5f;
     private bool isMoving = true;
+    private float originalSpeed;
+    [SerializeField] private float speedIncrease = 1.1f;
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
@@ -212,6 +214,23 @@ public class RangedEnemy : Enemies
         evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        originalSpeed = agent.speed;
+        int loopCount = GameManager.Instance.loopCounter;
+
+        if (loopCount == 0)
+        {
+            agent.speed = originalSpeed;
+        }
+        else
+        {
+            agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
     }
 
     void DropHealth()

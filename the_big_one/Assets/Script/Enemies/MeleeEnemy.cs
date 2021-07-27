@@ -12,18 +12,18 @@ public class MeleeEnemy : Enemies
     [SerializeField] private float pingPongLength = 0.5f;
     [SerializeField] private float minPingPongHeight = 1f;
     private float pingPongSpeed;
+    private float originalSpeed;
 
     [SerializeField] [Tooltip("Child game object of this parent")]
     private GameObject enemyObject;
     private GameObject player;
     [SerializeField] private GameObject hitParticle;
 
-
     [SerializeField] private int health = 10;
     [SerializeField] private float inVulnerabilityTime = 0.2f;
     private bool isInVulnerable = false;
 
-    [SerializeField] private int damageAmount = 5;
+    [SerializeField] private float damageAmount = 5;
     [SerializeField] private float attackSphereRadius = 3f;
     [SerializeField] private LayerMask layerMask;
 
@@ -31,6 +31,8 @@ public class MeleeEnemy : Enemies
     private float attackTimer;
 
     [SerializeField] private GameObject healthPickUp;
+
+    [SerializeField] private float speedIncrease = 1.1f;
 
     public void Start()
     {
@@ -136,6 +138,23 @@ public class MeleeEnemy : Enemies
         pingPongSpeed = Random.Range(0.2f, 0.6f);
 
         attackTimer = attackTimerAmount;
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        originalSpeed = agent.speed;
+        int loopCount = GameManager.Instance.loopCounter;
+
+        if (loopCount == 0)
+        {
+            agent.speed = originalSpeed;
+        }
+        else
+        {
+            agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
     }
 
     void DropHealth()
