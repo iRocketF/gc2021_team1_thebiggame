@@ -6,28 +6,23 @@ public class HitZone : MonoBehaviour
 {
     public int damage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Hit");
+            // Debug.Log("Hit");
             MeleeEnemy enemy = other.gameObject.GetComponentInParent<MeleeEnemy>();
+            RangedEnemy rEnemy = other.gameObject.GetComponent<RangedEnemy>();
 
-            enemy.TakeDamage(damage);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+
+            if (rEnemy != null)
+            {
+                rEnemy.TakeDamage(damage);
+            }
         }
 
     }

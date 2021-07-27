@@ -16,6 +16,7 @@ public class RangedEnemy : Enemies
 
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject hitParticle;
 
     [SerializeField] private float minDistance = 1f;
     [SerializeField] private float maxDistance = 3f;
@@ -26,15 +27,23 @@ public class RangedEnemy : Enemies
 
     private float moveTimer;
     [SerializeField] private float moveTimerAmount = 5f;
-    private bool isMoving;
+    private bool isMoving = true;
+    private float originalSpeed;
+    [SerializeField] private float speedIncrease = 1.1f;
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
+    [SerializeField] private float shootIncrease = 1.1f;
 
     [SerializeField] private float evadeSphereRadius = 5f;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float evadeTimerAmount = 3;
     private float evadeTimer;
+
+    [SerializeField] private Animator animator;
+    [SerializeField] private GameObject healthPickUp;
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioClip[] hurtSounds;
 
     void Start()
     {
@@ -49,6 +58,7 @@ public class RangedEnemy : Enemies
         {
             isMoving = false;
             moveTimer = moveTimerAmount;
+            animator.SetTrigger("idle");
         }
 
         moveTimer -= Time.deltaTime;
@@ -66,6 +76,15 @@ public class RangedEnemy : Enemies
         }
 
         EvadePlayer();
+
+        if (isMoving)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void GetNewDestination()
@@ -105,15 +124,27 @@ public class RangedEnemy : Enemies
 
     private void Shoot()
     {
-        transform.LookAt(player.transform.position);
+        Vector3 targetPos = new Vector3(player.transform.position.x, 
+                                        this.transform.position.y,
+                                        player.transform.position.z);
+        this.transform.LookAt(targetPos);
 
         shootTimer -= Time.deltaTime;
 
         if (shootTimer <= 0)
         {
-            GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
+            animator.SetTrigger("attack");
+
+            float timer = 0.9f * Mathf.Pow(shootIncrease, GameManager.Instance.loopCounter);
+
+            Invoke("InstantiateMissile", 0.9f);
             shootTimer = shootTimerAmount;
         }
+    }
+
+    void InstantiateMissile()
+    {
+        GameObject projectileClone = Instantiate(projectile, spawnPoint.position, spawnPoint.rotation);
     }
 
     public void TakeDamage(int damage)
@@ -121,6 +152,12 @@ public class RangedEnemy : Enemies
         Debug.Log("You hit me");
         if (!isInVulnerable)
         {
+            GameObject hitParticleClone = Instantiate(hitParticle, transform.position, transform.rotation);
+
+            float hitNumber = Random.Range(0, hurtSounds.Length);
+            hurtSound.clip = hurtSounds[Mathf.RoundToInt(hitNumber)];
+            hurtSound.Play();
+
             health -= damage;
             shootTimer = shootTimerAmount;
         }
@@ -167,6 +204,9 @@ public class RangedEnemy : Enemies
     public virtual void DeActivate()
     {
         FindObjectOfType<ExitHandler>().EnemyKilled();
+
+        DropHealth();
+
         base.Deactivate();
     }
 
@@ -178,5 +218,43 @@ public class RangedEnemy : Enemies
         evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        originalSpeed = agent.speed;
+        int loopCount = GameManager.Instance.loopCounter;
+
+        if (loopCount == 0)
+        {
+            agent.speed = originalSpeed;
+        }
+        else
+        {
+            agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
+
+        float originalShootTime = shootTimerAmount;
+
+        if (loopCount != 0)
+        {
+            shootTimerAmount = originalShootTime * Mathf.Pow(shootIncrease, loopCount);
+        }
+    }
+
+    void DropHealth()
+    {
+        int dropChance = Random.Range(1, 11);
+
+        Debug.Log(dropChance);
+
+        if (dropChance == 5)
+        {
+            Vector3 dropPos = transform.position;
+            dropPos.y = 2f;
+            Instantiate(healthPickUp, dropPos, Quaternion.identity);
+        }
     }
 }

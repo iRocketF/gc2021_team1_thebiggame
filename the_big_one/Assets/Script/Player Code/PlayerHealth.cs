@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    private GameManager manager;
+    [SerializeField] private GameObject pModel;
+
     public float maxHealth;
     public float currentHealth;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        manager = GameManager.Instance;
+
+        if (manager.playerHP > 0)
+            currentHealth = manager.playerHP;
+        else
+            currentHealth = maxHealth;
     }
 
     public void TakeDamage(float damage)
@@ -20,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
             Die();
     }
 
-    void AddHealth(float healthAmount)
+    public void AddHealth(float healthAmount)
     {
         currentHealth += healthAmount;
 
@@ -30,6 +38,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        pModel.SetActive(false);
     }
 }

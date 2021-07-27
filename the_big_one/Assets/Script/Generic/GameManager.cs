@@ -14,11 +14,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] int[] levelList1;
     [SerializeField] int[] levelList2;
     [SerializeField] int[] levelList3;
+    [SerializeField] int[] levelList4;
+    [SerializeField] int[] levelList5;
 
     private int[] levelOrder;
 
     private int currentLevel;
-    private int lastLevel = 3;  // Always one smaller than the real last level
+    private int lastLevel = 5;  // Always one smaller than the real last level
+    public int loopCounter;
+
+    [SerializeField] float chamberHeal;
+    public float playerHP;
 
     public static GameManager Instance
     {
@@ -52,14 +58,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            LoadMenu();
-        }
-
         if (Input.GetKeyDown(KeyCode.N))
         {
-            LoadNextLevel();
+            FindObjectOfType<ExitHandler>().OpenExit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
         }
     }
 
@@ -79,6 +85,12 @@ public class GameManager : MonoBehaviour
             case 3:
                 levelOrder = levelList3;
                 break;
+            case 4:
+                levelOrder = levelList4;
+                break;
+            case 5:
+                levelOrder = levelList5;
+                break;
             default:
                 levelOrder = levelList1;
                 break;
@@ -87,8 +99,16 @@ public class GameManager : MonoBehaviour
 
     public void LoadFirstLevel()
     {
+        playerHP = 0f;
+
         currentLevel = 0;
         ChooseRandomLevels();
+
+        if (SceneManager.GetActiveScene().buildIndex == menu)
+        {
+            loopCounter = 0;
+        }
+
         SceneManager.LoadScene(levelOrder[0]);
     }
 
@@ -96,6 +116,16 @@ public class GameManager : MonoBehaviour
     {
         if (currentLevel < lastLevel)
         {
+            PlayerHealth pHealth = FindObjectOfType<PlayerHealth>();
+            playerHP = pHealth.currentHealth;
+
+            if(playerHP < pHealth.maxHealth)
+            {
+                playerHP += chamberHeal;
+                if (playerHP > pHealth.maxHealth)
+                    playerHP = pHealth.maxHealth;
+            }
+
             Debug.Log("Next level");
             currentLevel++;
             int level = levelOrder[currentLevel];
@@ -104,14 +134,19 @@ public class GameManager : MonoBehaviour
         else if (currentLevel == lastLevel)
         {
             Debug.Log("Max level reached, starting again");
-            ChooseRandomLevels();
+            loopCounter++;
             LoadFirstLevel();
         }
-        
     }
 
     public void LoadMenu()
     {
         SceneManager.LoadScene(menu);
+    }
+
+    void Restart()
+    {
+        loopCounter = 0;
+        LoadFirstLevel();
     }
 }
