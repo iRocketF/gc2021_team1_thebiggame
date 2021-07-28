@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float chamberHeal;
     public float playerHP;
 
+    public ExitHandler handler;
+    public AudioSource ambientMusic;
+    public AudioSource combatMusic;
+
     public static GameManager Instance
     {
         get
@@ -41,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
@@ -58,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        handler = FindObjectOfType<ExitHandler>();
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             FindObjectOfType<ExitHandler>().OpenExit();
@@ -67,6 +74,12 @@ public class GameManager : MonoBehaviour
         {
             Restart();
         }
+
+        if(handler != null)
+        {
+            UpdateMusic();
+        }
+
     }
 
     void ChooseRandomLevels()
@@ -148,5 +161,21 @@ public class GameManager : MonoBehaviour
     {
         loopCounter = 0;
         LoadFirstLevel();
+    }
+
+    void UpdateMusic()
+    {
+        if (handler.enemiesAlive && !handler.startCombat && !handler.isMusicFading)
+        {
+            StartCoroutine(FadeMusic.StartFade(ambientMusic, 2f, 0f));
+            StartCoroutine(FadeMusic.StartFade(combatMusic, 2f, 0.5f));
+            handler.startCombat = true;
+        }
+        else if (!handler.enemiesAlive && handler.startCombat && !handler.isMusicFading)
+        {
+            StartCoroutine(FadeMusic.StartFade(combatMusic, 2f, 0f));
+            StartCoroutine(FadeMusic.StartFade(ambientMusic, 2f, 0.5f));
+            handler.startCombat = false;
+        }
     }
 }

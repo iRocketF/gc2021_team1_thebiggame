@@ -10,12 +10,21 @@ public class ExitHandler : MonoBehaviour
     private int enemiesKilled;
     private bool isExitOpen = false;
 
+    public bool isMusicFading;
+    public bool enemiesAlive;
+    public bool startCombat;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
             EnemyKilled();
         }
+
+        if(enemiesToKill > enemiesKilled)
+            enemiesAlive = true;
+        else if (enemiesToKill <= enemiesKilled)
+            enemiesAlive = false;
     }
 
     public void OpenExit()
