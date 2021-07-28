@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public Camera pCamera;
     public Transform rangedProjSpawn;
     public GameObject harpoon;
+    public AudioSource throwSource;
+    public AudioClip[] throwSounds;
 
     public float moveSpeed;
     public float gravity;
@@ -172,8 +174,17 @@ public class PlayerMovement : MonoBehaviour
         // projectile.AddForce();
     }
 
+    void SetThrowSound()
+    {
+        float hitNumber = Random.Range(0, throwSounds.Length);
+        throwSource.clip = throwSounds[Mathf.RoundToInt(hitNumber)];
+        throwSource.Play();
+    }
+
     void InstantiateHarpoon()
     {
+        SetThrowSound();
+
         GameObject harpoonClone = Instantiate(harpoon, rangedProjSpawn.position, rangedProjSpawn.rotation);
     }
 
