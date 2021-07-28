@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,18 @@ public class HarpoonProjectile : MonoBehaviour
             {
                 rEnemy.TakeDamage(damage);
             }
+        }
+        else
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (!other.gameObject.CompareTag("Enemy"))
+        {
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
         }
     }
 }
