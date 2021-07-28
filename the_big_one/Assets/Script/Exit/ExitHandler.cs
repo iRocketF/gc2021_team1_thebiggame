@@ -7,8 +7,16 @@ public class ExitHandler : MonoBehaviour
 {
     [SerializeField] private int enemiesToKill = 5;
     [SerializeField] private Renderer dooRenderer;
+
+    [SerializeField] private GameObject lamp1;
+    [SerializeField] private GameObject lamp2;
+
     private int enemiesKilled;
     private bool isExitOpen = false;
+
+    public bool isMusicFading;
+    public bool enemiesAlive;
+    public bool startCombat;
 
     void Update()
     {
@@ -16,12 +24,19 @@ public class ExitHandler : MonoBehaviour
         {
             EnemyKilled();
         }
+
+        if(enemiesToKill > enemiesKilled)
+            enemiesAlive = true;
+        else if (enemiesToKill <= enemiesKilled)
+            enemiesAlive = false;
     }
 
     public void OpenExit()
     {
         isExitOpen = true;
-        ChangeExitColor();
+
+        lamp1.SetActive(true);
+        lamp2.SetActive(true);
     }
 
     public void EnemyKilled()
