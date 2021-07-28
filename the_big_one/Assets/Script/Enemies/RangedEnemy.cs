@@ -28,9 +28,12 @@ public class RangedEnemy : Enemies
     private float moveTimer;
     [SerializeField] private float moveTimerAmount = 5f;
     private bool isMoving = true;
+    private float originalSpeed;
+    [SerializeField] private float speedIncrease = 1.1f;
 
     private float shootTimer;
     [SerializeField] private float shootTimerAmount = 1.5f;
+    [SerializeField] private float shootIncrease = 1.1f;
 
     [SerializeField] private float evadeSphereRadius = 5f;
     [SerializeField] private LayerMask layerMask;
@@ -39,6 +42,8 @@ public class RangedEnemy : Enemies
 
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject healthPickUp;
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioClip[] hurtSounds;
 
     void Start()
     {
@@ -129,6 +134,9 @@ public class RangedEnemy : Enemies
         if (shootTimer <= 0)
         {
             animator.SetTrigger("attack");
+
+            float timer = 0.9f * Mathf.Pow(shootIncrease, GameManager.Instance.loopCounter);
+
             Invoke("InstantiateMissile", 0.9f);
             shootTimer = shootTimerAmount;
         }
@@ -145,6 +153,10 @@ public class RangedEnemy : Enemies
         if (!isInVulnerable)
         {
             GameObject hitParticleClone = Instantiate(hitParticle, transform.position, transform.rotation);
+
+            float hitNumber = Random.Range(0, hurtSounds.Length);
+            hurtSound.clip = hurtSounds[Mathf.RoundToInt(hitNumber)];
+            hurtSound.Play();
 
             health -= damage;
             shootTimer = shootTimerAmount;
@@ -206,6 +218,30 @@ public class RangedEnemy : Enemies
         evadeTimer = evadeTimerAmount;
 
         GetNewDestination();
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        originalSpeed = agent.speed;
+        int loopCount = GameManager.Instance.loopCounter;
+
+        if (loopCount == 0)
+        {
+            agent.speed = originalSpeed;
+        }
+        else
+        {
+            agent.speed = originalSpeed * Mathf.Pow(speedIncrease, loopCount);
+        }
+
+        float originalShootTime = shootTimerAmount;
+
+        if (loopCount != 0)
+        {
+            shootTimerAmount = originalShootTime * Mathf.Pow(shootIncrease, loopCount);
+        }
     }
 
     void DropHealth()

@@ -21,9 +21,14 @@ public class GameManager : MonoBehaviour
 
     private int currentLevel;
     private int lastLevel = 5;  // Always one smaller than the real last level
+    public int loopCounter;
 
     [SerializeField] float chamberHeal;
     public float playerHP;
+
+    public ExitHandler handler;
+    public AudioSource ambientMusic;
+    public AudioSource combatMusic;
 
     public static GameManager Instance
     {
@@ -40,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
@@ -57,6 +63,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        handler = FindObjectOfType<ExitHandler>();
+
         if (Input.GetKeyDown(KeyCode.N))
         {
             FindObjectOfType<ExitHandler>().OpenExit();
@@ -66,6 +74,12 @@ public class GameManager : MonoBehaviour
         {
             Restart();
         }
+
+        if(handler != null)
+        {
+            UpdateMusic();
+        }
+
     }
 
     void ChooseRandomLevels()
@@ -102,6 +116,12 @@ public class GameManager : MonoBehaviour
 
         currentLevel = 0;
         ChooseRandomLevels();
+
+        if (SceneManager.GetActiveScene().buildIndex == menu)
+        {
+            loopCounter = 0;
+        }
+
         SceneManager.LoadScene(levelOrder[0]);
     }
 
@@ -127,7 +147,7 @@ public class GameManager : MonoBehaviour
         else if (currentLevel == lastLevel)
         {
             Debug.Log("Max level reached, starting again");
-            ChooseRandomLevels();
+            loopCounter++;
             LoadFirstLevel();
         }
     }
@@ -139,6 +159,23 @@ public class GameManager : MonoBehaviour
 
     void Restart()
     {
+        loopCounter = 0;
         LoadFirstLevel();
+    }
+
+    void UpdateMusic()
+    {
+        if (handler.enemiesAlive && !handler.startCombat && !handler.isMusicFading)
+        {
+            StartCoroutine(FadeMusic.StartFade(ambientMusic, 2f, 0f));
+            StartCoroutine(FadeMusic.StartFade(combatMusic, 2f, 0.5f));
+            handler.startCombat = true;
+        }
+        else if (!handler.enemiesAlive && handler.startCombat && !handler.isMusicFading)
+        {
+            StartCoroutine(FadeMusic.StartFade(combatMusic, 2f, 0f));
+            StartCoroutine(FadeMusic.StartFade(ambientMusic, 2f, 0.5f));
+            handler.startCombat = false;
+        }
     }
 }
