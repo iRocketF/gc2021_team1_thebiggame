@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
 
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI deathText;
+    public TextMeshProUGUI levelCounterText;
 
     private PlayerHealth pHealth;
     private GameManager manager;
@@ -36,5 +37,7 @@ public class PlayerUI : MonoBehaviour
             deathText.enabled = true;
         else
             deathText.enabled = false;
+
+        levelCounterText.text = "Rooms cleared: " + GameManager.Instance.levelCounter.ToString();
     }
 }

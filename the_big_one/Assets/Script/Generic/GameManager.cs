@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int currentLevel;
     private int lastLevel = 5;  // Always one smaller than the real last level
     public int loopCounter;
+    public int levelCounter;
 
     [SerializeField] float chamberHeal;
     public float playerHP;
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == menu)
         {
             loopCounter = 0;
+            levelCounter = 0;
         }
 
         SceneManager.LoadScene(levelOrder[0]);
@@ -150,6 +152,8 @@ public class GameManager : MonoBehaviour
             loopCounter++;
             LoadFirstLevel();
         }
+
+        levelCounter++;
     }
 
     public void LoadMenu()
@@ -160,6 +164,7 @@ public class GameManager : MonoBehaviour
     void Restart()
     {
         loopCounter = 0;
+        levelCounter = 0;
         LoadFirstLevel();
     }
 
