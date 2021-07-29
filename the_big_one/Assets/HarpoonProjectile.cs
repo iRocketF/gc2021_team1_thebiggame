@@ -40,13 +40,14 @@ public class HarpoonProjectile : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (particlesActive)
         {
             particlesActive = false;
             particles.Stop();
             Destroy(particles.transform.gameObject, 1f);
         }
-
+        */
         if (other.gameObject.CompareTag("Enemy"))
         {
             // Debug.Log("Hit");
