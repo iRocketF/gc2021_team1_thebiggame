@@ -119,7 +119,9 @@ MonoBehaviour:
   pingPongLength: 1
   minPingPongHeight: 0.2
   enemyObject: {fileID: 3305114643669471042}
-  hitParticle: {fileID: 5559349401309048093, guid: 25dc7f9bf17ef4b45a5bde6fceb9f64a, type: 3}
+  innerLight: {fileID: 4896349173178496745}
+  hitParticle: {fileID: 1584616011193750917, guid: 5cb69d5da19bc5841b9759c5334d27c5, type: 3}
+  deathParticle: {fileID: 8615741198653735783, guid: 6c5aebc2b719c7a4f838ce0358502c32, type: 3}
   health: 20
   inVulnerabilityTime: 0.2
   damageAmount: 5
@@ -187,6 +189,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7879226601382490578, guid: ba9efd039607aa94d96d3f66a9da0db0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9efd039607aa94d96d3f66a9da0db0, type: 3}
 --- !u!1 &3305114643669471042 stripped
@@ -197,5 +203,10 @@ GameObject:
 --- !u!4 &2780393247001548280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2051137886594911585, guid: ba9efd039607aa94d96d3f66a9da0db0, type: 3}
+  m_PrefabInstance: {fileID: 4243213176654125209}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4896349173178496745 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8723956566651121264, guid: ba9efd039607aa94d96d3f66a9da0db0, type: 3}
   m_PrefabInstance: {fileID: 4243213176654125209}
   m_PrefabAsset: {fileID: 0}

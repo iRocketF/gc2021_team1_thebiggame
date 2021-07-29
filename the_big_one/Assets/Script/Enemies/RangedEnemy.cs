@@ -17,6 +17,7 @@ public class RangedEnemy : Enemies
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private GameObject hitParticle;
+    [SerializeField] private GameObject deathParticle;
 
     [SerializeField] private float minDistance = 1f;
     [SerializeField] private float maxDistance = 3f;
@@ -169,6 +170,7 @@ public class RangedEnemy : Enemies
 
         if (health <= 0)
         {
+            Instantiate(deathParticle, transform.position, Quaternion.identity);
             DeActivate();
         }
         else

@@ -18,7 +18,9 @@ public class MeleeEnemy : Enemies
     private GameObject enemyObject;
     private GameObject player;
     private PlayerHealth playerHealth;
+    [SerializeField] private GameObject innerLight;
     [SerializeField] private GameObject hitParticle;
+    [SerializeField] private GameObject deathParticle;
 
     [SerializeField] private int health = 10;
     [SerializeField] private float inVulnerabilityTime = 0.2f;
@@ -51,6 +53,8 @@ public class MeleeEnemy : Enemies
         {
             FollowPlayer();
         }
+
+        attackTimer -= Time.deltaTime;
 
         PingPong();
         PrepareToAttack();
@@ -95,8 +99,7 @@ public class MeleeEnemy : Enemies
     }
 
     void Attack()
-    {
-        attackTimer -= Time.deltaTime;
+    {        
 
         if (attackTimer <= 0)
         {
@@ -116,7 +119,10 @@ public class MeleeEnemy : Enemies
 
     void DamagePlayer()
     {
-        playerHealth.TakeDamage(damageAmount);
+        if (Vector3.Distance(transform.position, player.transform.position) <= 2.5f)
+        {
+            playerHealth.TakeDamage(damageAmount);
+        }
     }
 
     public virtual void DeActivate()
@@ -141,6 +147,7 @@ public class MeleeEnemy : Enemies
         
         if (health <= 0)
         {
+            Instantiate(deathParticle, transform.position, Quaternion.identity);
             DeActivate();
         }
         else
