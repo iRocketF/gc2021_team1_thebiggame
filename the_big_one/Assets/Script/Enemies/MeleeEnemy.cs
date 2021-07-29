@@ -17,6 +17,7 @@ public class MeleeEnemy : Enemies
     [SerializeField] [Tooltip("Child game object of this parent")]
     private GameObject enemyObject;
     private GameObject player;
+    private PlayerHealth playerHealth;
     [SerializeField] private GameObject hitParticle;
 
     [SerializeField] private int health = 10;
@@ -35,6 +36,8 @@ public class MeleeEnemy : Enemies
     [SerializeField] private GameObject healthPickUp;
 
     [SerializeField] private float speedIncrease = 1.1f;
+
+    [SerializeField] private Animator animator;
 
     public void Start()
     {
@@ -55,7 +58,12 @@ public class MeleeEnemy : Enemies
 
     void FollowPlayer()
     {
-        Vector3 targetPos = player.transform.position;
+        //Vector3 targetPos = player.transform.position;
+
+        Vector3 targetPos = new Vector3(player.transform.position.x,
+            this.transform.position.y,
+            player.transform.position.z);
+        //this.transform.LookAt(targetPos);
 
         transform.LookAt(targetPos);
         agent.SetDestination(targetPos);
@@ -79,24 +87,36 @@ public class MeleeEnemy : Enemies
         {
             if (hitCollider.gameObject.CompareTag("Player"))
             {
-                PlayerHealth health = hitCollider.gameObject.GetComponent<PlayerHealth>();
-                Attack(health);
+                playerHealth = hitCollider.gameObject.GetComponent<PlayerHealth>();
+                Attack();
                 break;
             }
         }
     }
 
-    void Attack(PlayerHealth healthSystem)
+    void Attack()
     {
         attackTimer -= Time.deltaTime;
 
         if (attackTimer <= 0)
         {
-            healthSystem.TakeDamage(damageAmount);
+            animator.SetTrigger("attack");
 
-            Debug.Log("Player took damage from melee");
+            float timer = 0.5f;
+
+            if (GameManager.Instance.loopCounter != 0)
+            {
+                timer = 0.5f * Mathf.Pow(attackSpeedIncrease, GameManager.Instance.loopCounter);
+            }
+
+            Invoke("DamagePlayer", timer);
             attackTimer = attackTimerAmount;
         }
+    }
+
+    void DamagePlayer()
+    {
+        playerHealth.TakeDamage(damageAmount);
     }
 
     public virtual void DeActivate()
@@ -137,6 +157,8 @@ public class MeleeEnemy : Enemies
 
     void SetUp()
     {
+        animator.SetBool("isMoving", true);
+
         pingPongSpeed = Random.Range(0.2f, 0.6f);
 
         attackTimer = attackTimerAmount;

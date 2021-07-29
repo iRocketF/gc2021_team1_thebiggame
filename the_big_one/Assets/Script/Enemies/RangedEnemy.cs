@@ -135,9 +135,14 @@ public class RangedEnemy : Enemies
         {
             animator.SetTrigger("attack");
 
-            float timer = 0.9f * Mathf.Pow(shootIncrease, GameManager.Instance.loopCounter);
+            float timer = 0.9f;
 
-            Invoke("InstantiateMissile", 0.9f);
+            if (GameManager.Instance.loopCounter != 0)
+            {
+                timer = 0.9f * Mathf.Pow(shootIncrease, GameManager.Instance.loopCounter);
+            }
+            
+            Invoke("InstantiateMissile", timer);
             shootTimer = shootTimerAmount;
         }
     }
