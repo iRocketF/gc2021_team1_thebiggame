@@ -9,21 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: c348c2d6042914c49b86cf944c365e03
   - enabled: 1
-    path: Assets/Scenes/Levels/Level5.unity
-    guid: 0071eb5b65ad47342a4744c33424b489
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level6.unity
-    guid: 6fe1e9ebad1225a45a54bde462554442
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level7.unity
-    guid: d74bfd75e5012a744ba5af0e8e125f9c
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level8.unity
-    guid: 1df14fbccb0aad1498b94a8618830f5b
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level9.unity
-    guid: fcef01bf59dfb9341ae15beb099c5886
-  - enabled: 1
     path: Assets/Scenes/Levels/Jirko_Level1.unity
     guid: 96e25831cac7ec64196f4129347b7632
+  - enabled: 1
+    path: Assets/Scenes/Levels/Jirko_Level2.unity
+    guid: 447daf758d725a14c9e1fd9be1880391
+  - enabled: 1
+    path: Assets/Scenes/Levels/Jirko_Level3.unity
+    guid: f25d1d022c9f1a440bcffd163934a84b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Jirko_Level4.unity
+    guid: fb3f092711b55c04ab620082b5033f55
+  - enabled: 1
+    path: Assets/Scenes/Levels/Jirko_Level5.unity
+    guid: 17dfc31ab22f82a4db599f3c41459d5e
+  - enabled: 1
+    path: Assets/Scenes/Levels/Jirko_Level6.unity
+    guid: 23f53de0e4141134394bc556504b6ebd
   m_configObjects: {}
