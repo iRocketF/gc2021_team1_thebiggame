@@ -119,7 +119,7 @@ MonoBehaviour:
   pingPongLength: 1
   minPingPongHeight: 0.2
   enemyObject: {fileID: 3305114643669471042}
-  hitParticle: {fileID: 5559349401309048093, guid: 0025bef2ce412a147be515e2589d3998, type: 3}
+  hitParticle: {fileID: 5559349401309048093, guid: 25dc7f9bf17ef4b45a5bde6fceb9f64a, type: 3}
   health: 20
   inVulnerabilityTime: 0.2
   damageAmount: 5

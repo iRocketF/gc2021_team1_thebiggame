@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera pCamera;
     public Transform rangedProjSpawn;
     public GameObject harpoon;
+    public AudioSource dashSound;
     public AudioSource throwSource;
     public AudioClip[] throwSounds;
 
@@ -23,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
 
     public float immobilityTime;
     private float immobilityTimer;
+
+    public float attackRate;
+    private float nextTimeToAttack;
+    private bool isAttacking;
 
     public float throwCoolDown;
     private float throwTimer;
@@ -78,10 +83,10 @@ public class PlayerMovement : MonoBehaviour
         if(!isImmobile && !isDead)
             Move();
 
-        if (Input.GetButtonDown("Fire1") && !isDashing && !isDead)
+        if (Input.GetButton("Fire1") && !isDashing && !isAttacking && !hasThrown && !isDead && Time.time >= nextTimeToAttack)
             Attack();
 
-        if (Input.GetButtonDown("Fire2") && !isDashing && !isDead && !hasThrown)
+        if (Input.GetButtonDown("Fire2") && !isDashing && !hasThrown && !isDead)
             RangedAttack();
 
         if (Input.GetButtonDown("Dash") && !hasDashed && !isDead)
@@ -133,6 +138,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Attack()
     {
+        nextTimeToAttack = Time.time + 1f / attackRate;
+
         isImmobile = true;
         immobilityTimer = 0f;
 
@@ -191,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
     void Dash()
     {
         pAnimator.SetTrigger("Dash");
+        dashSound.Play();
 
         ogPosition = transform.position;
         dashDirection = transform.forward;
