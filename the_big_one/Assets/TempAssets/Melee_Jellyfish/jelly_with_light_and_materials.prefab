@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 2051137886594911585}
   m_Layer: 0
   m_Name: jelly_with_light_and_materials
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
