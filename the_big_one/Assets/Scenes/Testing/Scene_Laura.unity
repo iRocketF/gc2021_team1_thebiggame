@@ -832,11 +832,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 29.18, y: 0, z: 0}
---- !u!1 &2135280766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4243213178174940508, guid: 92f67ae6792e60348a4ad5eb5235cda1, type: 3}
-  m_PrefabInstance: {fileID: 4243213176576567586}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &344218709077562858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1019,10 +1014,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4636294052933403984, guid: 5bbc88444f556bc4290d5b0fbcd0b0c6, type: 3}
-      propertyPath: pools.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 2135280766}
     - target: {fileID: 4636294052933403985, guid: 5bbc88444f556bc4290d5b0fbcd0b0c6, type: 3}
       propertyPath: m_Name
       value: ObjectPooler
@@ -1143,7 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6900810705979220120, guid: 3a814a0de58578945bc73960b27a36c7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6900810705979220121, guid: 3a814a0de58578945bc73960b27a36c7, type: 3}
       propertyPath: amountToSpawn
