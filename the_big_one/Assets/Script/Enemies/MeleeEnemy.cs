@@ -193,8 +193,6 @@ public class MeleeEnemy : Enemies
     {
         int dropChance = Random.Range(1, 11);
 
-        Debug.Log(dropChance);
-
         if (dropChance == 5)
         {
             Vector3 dropPos = transform.position;

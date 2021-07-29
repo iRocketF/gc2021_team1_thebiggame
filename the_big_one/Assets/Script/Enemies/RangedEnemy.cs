@@ -192,7 +192,6 @@ public class RangedEnemy : Enemies
 
                 if (evadeTimer <= 0)
                 {
-                    Debug.Log("Player too close to me, evade");
                     moveTimer = 0f;
 
                     evadeTimer = evadeTimerAmount;
@@ -252,8 +251,6 @@ public class RangedEnemy : Enemies
     void DropHealth()
     {
         int dropChance = Random.Range(1, 11);
-
-        Debug.Log(dropChance);
 
         if (dropChance == 5)
         {
