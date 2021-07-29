@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3449348794602701584}
   - component: {fileID: 824020393657112374}
   m_Layer: 6
-  m_Name: Enemy Hit Particle
+  m_Name: Enemy Hit Particle Jelly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.735849, g: 0.03818085, b: 0.03818085, a: 1}
+      maxColor: {r: 0.7306282, g: 0.33708617, b: 0.9528302, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
