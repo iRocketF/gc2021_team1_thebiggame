@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: 1500
+  particlePrefab: {fileID: 546110471256177884, guid: 0aa0b0eb6e629af47993e843926a26d3, type: 3}
   damage: 5
 --- !u!114 &3849504837837520836
 MonoBehaviour:
