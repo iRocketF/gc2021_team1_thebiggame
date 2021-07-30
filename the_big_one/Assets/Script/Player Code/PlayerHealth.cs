@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     private GameManager manager;
     [SerializeField] private GameObject pModel;
     [SerializeField] private GameObject particleHit;
+    [SerializeField] private GameObject particleDeath;
 
     public float maxHealth;
     public float currentHealth;
@@ -36,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
             if (currentHealth <= 0f)
             {
                 currentHealth = 0f;
+                Instantiate(particleDeath, transform.position, Quaternion.identity);
                 Die();
             }
         }
