@@ -19,6 +19,8 @@ public class HarpoonProjectile : MonoBehaviour
         pEmitter = Instantiate(particlePrefab, transform.position, transform.rotation);
         particles = pEmitter.GetComponent<ParticleSystem>();
 
+        Physics.IgnoreLayerCollision(9, 9);
+
         AddForce();
     }
 
