@@ -11,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
 
+    public AudioSource hurtSound;
+    public AudioClip[] hurtSounds;
+
     void Start()
     {
         manager = GameManager.Instance;
@@ -23,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        SetHurtSound();
 
         if(currentHealth > 0f)
         {
@@ -50,5 +54,12 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         pModel.SetActive(false);
+    }
+
+    void SetHurtSound()
+    {
+        float hitNumber = Random.Range(0, hurtSounds.Length);
+        hurtSound.clip = hurtSounds[Mathf.RoundToInt(hitNumber)];
+        hurtSound.Play();
     }
 }

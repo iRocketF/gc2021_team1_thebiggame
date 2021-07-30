@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 1922305030993353507}
   - component: {fileID: 7240593614525087962}
   m_Layer: 7
-  m_Name: ThrowAudio
+  m_Name: PlayerAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,15 +465,15 @@ MonoBehaviour:
 
     Press R to restart'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282729940
+  m_fontColor: {r: 0.8301887, g: 0.27020293, b: 0.27020293, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -879,7 +879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 311, y: -148}
+  m_AnchoredPosition: {x: 488, y: -282}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2036239388627216809
@@ -914,8 +914,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1101,6 +1101,12 @@ MonoBehaviour:
   particleHit: {fileID: 5710121271019598942, guid: cfceae03ece2a884eb902bfab1c9e5c8, type: 3}
   maxHealth: 20
   currentHealth: 0
+  hurtSound: {fileID: 7240593614525087962}
+  hurtSounds:
+  - {fileID: 8300000, guid: 6d6a9379068f5424a80aef47b0fdfa1d, type: 3}
+  - {fileID: 8300000, guid: fd205b5abad6dd94a8f6663c4571d1e3, type: 3}
+  - {fileID: 8300000, guid: 744967fd45dcd31438108e3f8213510f, type: 3}
+  - {fileID: 8300000, guid: 744967fd45dcd31438108e3f8213510f, type: 3}
 --- !u!1 &4441983887028564505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,7 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb69e614edaa0524ab11b7728e359cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 4
 --- !u!1 &6571665393405434903
 GameObject:
   m_ObjectHideFlags: 0
