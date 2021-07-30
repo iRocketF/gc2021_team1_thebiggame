@@ -1098,6 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pModel: {fileID: 7145692591151026911}
+  particleHit: {fileID: 5710121271019598942, guid: cfceae03ece2a884eb902bfab1c9e5c8, type: 3}
   maxHealth: 20
   currentHealth: 0
 --- !u!1 &4441983887028564505

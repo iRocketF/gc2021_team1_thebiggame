@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     private GameManager manager;
     [SerializeField] private GameObject pModel;
+    [SerializeField] private GameObject particleHit;
 
     public float maxHealth;
     public float currentHealth;
@@ -22,10 +23,20 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
 
-        if (currentHealth <= 0f)
-            Die();
+        if(currentHealth > 0f)
+        {
+            currentHealth -= damage;
+            Instantiate(particleHit, transform.position, Quaternion.identity);
+
+            if (currentHealth <= 0f)
+            {
+                currentHealth = 0f;
+                Die();
+            }
+        }
+        
+
     }
 
     public void AddHealth(float healthAmount)
