@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isImmobile;
     private bool isDead;
 
+    private int layerMask;
+
     // dash stuff
     public float dashCooldown; // how long until the player can dash again
     private float dashTimer; // counts time from last dash
@@ -73,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         forward = Vector3.Normalize(forward);
 
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        layerMask = LayerMask.GetMask("Ground");
     }
 
     void Update()
@@ -147,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
         Ray ray = pCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, layerMask))
         {
             var target = hitInfo.point;
             transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
@@ -168,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
         Ray ray = pCamera.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, layerMask))
         {
             var target = hitInfo.point;
             transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
