@@ -26,11 +26,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        SetHurtSound();
 
         if(currentHealth > 0f)
         {
             currentHealth -= damage;
+            SetHurtSound();
             Instantiate(particleHit, transform.position, Quaternion.identity);
 
             if (currentHealth <= 0f)
